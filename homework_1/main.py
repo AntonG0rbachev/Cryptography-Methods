@@ -16,8 +16,8 @@ caesar = CaesarAlgorithm()
 
 # if --encrypt -> call encrypt function
 if(args.encrypt_or_decrypt == True):
-    print(caesar.encrypt(args.message, args.key, args.alphabet))
+    print(f'encrypted {caesar.encrypt(args.message, args.key, args.alphabet)}')
 
 # if --decrypt -> call decrypt function
 else:
-    print(caesar.decrypt(args.message, args.key, args.alphabet))
+    print(f'decrypted {caesar.decrypt(args.message, args.key, args.alphabet)}')
