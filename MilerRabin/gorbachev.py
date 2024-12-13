@@ -32,7 +32,7 @@ e = choose_e(0, fi)
 print(f'e is {e}')
 d = choose_d(e, fi)
 print(f'd is {d}')
-m = (int(input('Input m\n')))
+m = (int(input('Input m: ')))
 
 c = pow(m, e, n)
 print(f'c if {c}')
