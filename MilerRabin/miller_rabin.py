@@ -1,6 +1,6 @@
 import random
 
-from quick_pow import quick_pow
+from QuickPow.quick_pow import quick_pow
 
 
 def miller_rabin_test(n, k=5):
@@ -57,6 +57,7 @@ def generate_prime(k):
         p = generate_number(k)
         if miller_rabin_test(p, 5):
             return p
+
 
 if __name__ == '__main__':
     k = 10
