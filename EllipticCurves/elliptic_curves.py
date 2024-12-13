@@ -33,8 +33,10 @@ def porjadoktime(a, b, p):
     s = porjadok(a, b, p)
     now2 = time.time()
     delta = now2 - now1
-    print(f'Порядок кривой y^2 = x^3 + {a}x + {b} (mod {p}) равен {s}.'
-          f'Время выполнения: {delta} сек')
+    print(
+        f'Порядок кривой y^2 = x^3 + {a}x + {b} (mod {p}) равен {s}.'
+        f'Время выполнения: {delta} сек'
+    )
 
 
 def proba(a, b, p):
@@ -68,7 +70,7 @@ def summ(first, second):
     return x, y
 
 
-print(gcdex(2 * 864, 2539))
+print(gcdex(2 * 864, 419))
 
 n = 11
 x1 = 5
@@ -100,8 +102,8 @@ print(f'23P = 16P + 7P = {p23}')
 p151 = summ((210, 8), p23)
 print(f'151P = 128P + 23P = {p151}')
 
-print(f'proba: {proba(1, 0, 2539)}')
-print(f'porjadok: {porjadok(1, 0, 2539)}')
+print(f'proba: {proba(1, 0, 419)}')
+print(f'porjadok: {porjadok(1, 0, 419)}')
 porjadoktime(1, 0, 2539)
 
 p20 = summ((2257, 210), (628, 2255))
