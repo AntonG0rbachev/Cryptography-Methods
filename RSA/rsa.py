@@ -1,12 +1,13 @@
 import random
 
-from quick_pow import quick_pow
+from QuickPow.quick_pow import quick_pow
 
 
 def gcd(a, b):
     while b != 0:
         a, b = b, a % b
     return a
+
 
 def hack_rsa(message, encrypted_message, N):
     private_key = 1
@@ -17,6 +18,7 @@ def hack_rsa(message, encrypted_message, N):
 
     return private_key if iteration <= 10000000 else None
 
+
 def extended_euclid(a, b):
     if b == 0:
         return a, 1, 0
@@ -25,11 +27,13 @@ def extended_euclid(a, b):
     y = x1 - (a // b) * y1
     return gcd, x, y
 
+
 def inverse(e, phi):
     gcd, x, y = extended_euclid(e, phi)
     if gcd != 1:
         return None
     return x % phi
+
 
 if __name__ == '__main__':
     p = 1597
@@ -97,5 +101,3 @@ if __name__ == '__main__':
     print(f'Перевод исходного сообщения в числа: {message_codes}')
     print(f'Зашифрованное сообщение: {encrypted_codes}')
     print(f'Расшифрование сообщения: {decrypted_codes}')
-
-
