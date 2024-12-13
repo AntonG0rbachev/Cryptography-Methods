@@ -1,3 +1,6 @@
+import sys
+
+
 def quick_pow(base, exp, mod):
     """
     это метод, позволяющий вычислять a^b mod m (или просто a^b)
@@ -22,8 +25,36 @@ def quick_pow(base, exp, mod):
 
 
 if __name__ == '__main__':
-    print(quick_pow(
-        3212312312337846567834734567864357863457863451232342344,
-        618970019642690137449562110,
-        123123123)
-    )
+    args = sys.argv
+
+    defaults = {
+        'base': 3212312312337846567834734567864357863457863451232342344,
+        'exp': 618970019642690137449562110,
+        'mod': 123123123,
+    }
+
+    if len(args) <= 1:
+        print(
+            quick_pow(
+                defaults['base'],
+                defaults['exp'],
+                defaults['mod']
+            )
+        )
+    else:
+        args = args[1::]
+        args_map = dict()
+        if len(args) % 2 != 0:
+            raise Exception("there's not enough argument")
+        for i in range(0, len(args) - 1, 2):
+            args_map[args[i]] = args[i + 1]
+        base = float(args_map['-b']) if '-b' in args_map.keys() else defaults['base']
+        exp = float(args_map['-e']) if '-e' in args_map.keys() else defaults['exp']
+        mod = float(args_map['-m']) if '-m' in args_map.keys() else defaults['mod']
+        print(
+            quick_pow(
+                base,
+                exp,
+                mod,
+            )
+        )
