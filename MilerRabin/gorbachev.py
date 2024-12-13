@@ -1,3 +1,7 @@
+"""
+БЕЗ БЫСТРОГО ВОЗВЕДЕНИЯ В СЕПЕНЬ
+"""
+
 import random
 import datetime
 import sys
@@ -30,7 +34,6 @@ def miller_rabin(n, k=5):
     Тест Миллера-Рабина для проверки числа на простоту.
     n - проверяемое число
     k - количество раундов теста (точность проверки)
-    БЕЗ БЫСТРОГО ВОЗВЕДЕНИЯ В СЕПЕНЬ
     """
     n = n - 1
     s = 0
@@ -82,37 +85,5 @@ if __name__ == '__main__':
                 step += 1
 
         print(f"Simple is {a}, шаг is {step}, time is {datetime.datetime.now() - start}")
-    elif args[-1] == '--rsa':
-        p = 1621
-        q = 4483
-        n = p * q
-        fi = (p - 1) * (q - 1)
-        e = choose_e(0, fi)
-        print(f'e is {e}')
-        d = choose_d(e, fi)
-        print(f'd is {d}')
-        m = (int(input('Input m: ')))
-
-        c = pow(m, e, n)
-        print(f'c if {c}')
-        decrypted = pow(c, d, n)
-        print(f'decrypted is {decrypted}')
-        keys = nod(p - 1, q - 1)
-        print(keys)
-
-        surname = 'Gorbachev'
-
-        codes = [(ord(ch) - 64) for ch in surname]
-        print(codes)
-        encrypted_word = [pow(m, e, n) for m in codes]
-        print(f'encrypted is {encrypted_word}')
-        decrypted_word = [pow(c, d, n) for c in encrypted_word]
-        print(f'decrypted is {decrypted_word}')
-        print(''.join([chr(char + 64) for char in decrypted_word]))
-
-        start_key = 2
-        while pow(encrypted_word[0], start_key, n) != decrypted_word[0]:
-            start_key += 1
-        print(start_key)
     else:
         raise Exception('Unknown argument(s)')
