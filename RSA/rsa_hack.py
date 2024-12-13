@@ -88,16 +88,3 @@ if __name__ == '__main__':
     else:
         print(f'\nУспешный взлом, найденный ключ: {private_key}')
         print(f'Зашифрованное сообщение: {c}; Взломанное: {quick_pow(c, private_key, n)}')
-
-    print('\n\n')
-    print(f'Шифрование слова')
-
-    message = 'Gorbachev'
-    message_codes = [ord(letter) for letter in message]
-    encrypted_codes = [quick_pow(m, e, n) for m in message_codes]
-    decrypted_codes = [quick_pow(c, d, n) for c in encrypted_codes]
-
-    print(f'Исходное сообщение: {message}')
-    print(f'Перевод исходного сообщения в числа: {message_codes}')
-    print(f'Зашифрованное сообщение: {encrypted_codes}')
-    print(f'Расшифрование сообщения: {decrypted_codes}')
