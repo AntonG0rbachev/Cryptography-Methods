@@ -85,25 +85,26 @@ def miller_rabin(n, k=5):
     return True
 
 
-start = datetime.datetime.now()
-default_simple = [3, 5, 7, 9, 11, 13, 17, 19]
-k = int(input("Введите длину\n"))
-a = random.randint(2 ** (k - 1), 2 ** k)
-if a % 2 == 0:
-    a += 1
+if __name__ == '__main__':
+    start = datetime.datetime.now()
+    default_simple = [3, 5, 7, 9, 11, 13, 17, 19]
+    k = int(input("Введите длину\n"))
+    a = random.randint(2 ** (k - 1), 2 ** k)
+    if a % 2 == 0:
+        a += 1
 
-flag = False
-step = 1
-while not (flag):
-    for i in default_simple:
-        if a % i == 0:
-            flag = False
-            step += 1
+    flag = False
+    step = 1
+    while not flag:
+        for simple in default_simple:
+            if a % simple == 0:
+                flag = False
+                step += 1
+                a += 2
+                break
+        flag = miller_rabin(a, 5)
+        if not flag:
             a += 2
-            break
-    flag = miller_rabin(a, 5)
-    if not (flag):
-        a += 2
-        step += 1
+            step += 1
 
-print(f"Simple is {a}, шаг is {step}, time is {datetime.datetime.now() - start}")
+    print(f"Simple is {a}, шаг is {step}, time is {datetime.datetime.now() - start}")
