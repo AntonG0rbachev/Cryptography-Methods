@@ -57,14 +57,20 @@ while pow(encrypted_word[0], start_key, n) != decrypted_word[0]:
 print(start_key)
 
 
-def miller_rabin(n, k):
+def miller_rabin(n, k=5):
+    """
+    Тест Миллера-Рабина для проверки числа на простоту.
+    n - проверяемое число
+    k - количество раундов теста (точность проверки)
+    БЕЗ БЫСТРОГО ВОЗВЕДЕНИЯ В СЕПЕНЬ
+    """
     n = n - 1
     s = 0
     t = n
-    while (t % 2 == 0):
+    while t % 2 == 0:
         s += 1
         t /= 2
-    for i in range(k):
+    for _ in range(k):
         a = random.randint(2, n)
         x = pow(a, int(t), n + 1)
         if x == 1 or x == n:
