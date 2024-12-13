@@ -1,4 +1,5 @@
 import random
+import sys
 
 from QuickPow.quick_pow import quick_pow
 
@@ -70,6 +71,13 @@ def generate_prime(k):
 
 
 if __name__ == '__main__':
-    k = 10
-    prime_number = generate_prime(k)
+    args = sys.argv
+    prime_number = None
+
+    if len(args) <= 1:
+        prime_number = generate_prime(10)
+    elif args[-2] == '-k':
+        k = int(args[-1])
+        prime_number = generate_prime(k)
+
     print(f"Сгенерированное простое число: {prime_number}")
