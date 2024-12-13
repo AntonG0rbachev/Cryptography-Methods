@@ -92,7 +92,7 @@ if __name__ == '__main__':
     print('\n\n')
     print(f'Шифрование слова')
 
-    message = 'Чернов'
+    message = 'Gorbachev'
     message_codes = [ord(letter) for letter in message]
     encrypted_codes = [quick_pow(m, e, n) for m in message_codes]
     decrypted_codes = [quick_pow(c, d, n) for c in encrypted_codes]
