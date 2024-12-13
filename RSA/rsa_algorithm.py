@@ -1,4 +1,6 @@
 import random
+import sys
+
 from sympy import gcd, mod_inverse
 
 
@@ -55,17 +57,36 @@ def decrypt(private_key, cipher_text):
 
 
 if __name__ == '__main__':
-    bits = 8 
+    args = sys.argv
+
+    defaults = {
+        'bits': 8,
+        'message': 'Hello World'
+    }
+    bits = None
+    message = None
+
+    if len(args) <= 1:
+        bits = defaults['bits']
+        message = defaults['message']
+    else:
+        args = args[1::]
+        args_map = dict()
+        if len(args) % 2 != 0:
+            raise Exception("there's not enough argument")
+        for i in range(0, len(args) - 1, 2):
+            args_map[args[i]] = args[i + 1]
+        bits = float(args_map['-b']) if '-b' in args_map.keys() else defaults['bits']
+        message = args_map['-m'] if '-m' in args_map.keys() else defaults['message']
+
     public_key, private_key = generate_keypair(bits)
 
-    print("Public Key:", public_key)
-    print("Private Key:", private_key)
-
-    message = "Hello"
-    print("Original Message:", message)
+    print("Публичный ключ:", public_key)
+    print("\nПриватный ключ:", private_key)
+    print("\nИсходное сообщение:", message)
 
     encrypted_msg = encrypt(public_key, message)
-    print("Encrypted Message:", encrypted_msg)
+    print("\nЗашифрованное сообщение:", encrypted_msg)
 
     decrypted_msg = decrypt(private_key, encrypted_msg)
-    print("Decrypted Message:", decrypted_msg)
+    print("\nРасшифрованное сообщение:", decrypted_msg)
