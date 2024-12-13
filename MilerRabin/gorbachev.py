@@ -88,7 +88,7 @@ def miller_rabin(n, k=5):
 if __name__ == '__main__':
     start = datetime.datetime.now()
     default_simple = [3, 5, 7, 9, 11, 13, 17, 19]
-    k = int(input("Введите длину\n"))
+    k = int(input("Введите длину: "))
     a = random.randint(2 ** (k - 1), 2 ** k)
     if a % 2 == 0:
         a += 1
