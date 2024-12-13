@@ -1,5 +1,6 @@
 import random
 import datetime
+import sys
 
 
 def nod(a, b):
@@ -22,39 +23,6 @@ def choose_d(e, fi):
     while (e * d) % fi != 1:
         d += 1
     return d
-
-
-p = 1621
-q = 4483
-n = p * q
-fi = (p - 1) * (q - 1)
-e = choose_e(0, fi)
-print(f'e is {e}')
-d = choose_d(e, fi)
-print(f'd is {d}')
-m = (int(input('Input m: ')))
-
-c = pow(m, e, n)
-print(f'c if {c}')
-decr = pow(c, d, n)
-print(f'decrypted is {decr}')
-keys = nod(p - 1, q - 1)
-print(keys)
-
-surname = 'Gorbachev'
-
-codes = [(ord(ch) - 64) for ch in surname]
-print(codes)
-encrypted_word = [pow(m, e, n) for m in codes]
-print(f'encrypted is {encrypted_word}')
-decrypted_word = [pow(c, d, n) for c in encrypted_word]
-print(f'decrypted is {decrypted_word}')
-print(''.join([chr(char + 64) for char in decrypted_word]))
-
-start_key = 2
-while pow(encrypted_word[0], start_key, n) != decrypted_word[0]:
-    start_key += 1
-print(start_key)
 
 
 def miller_rabin(n, k=5):
@@ -86,25 +54,65 @@ def miller_rabin(n, k=5):
 
 
 if __name__ == '__main__':
-    start = datetime.datetime.now()
-    default_simple = [3, 5, 7, 9, 11, 13, 17, 19]
-    k = int(input("Введите длину: "))
-    a = random.randint(2 ** (k - 1), 2 ** k)
-    if a % 2 == 0:
-        a += 1
+    args = sys.argv
 
-    flag = False
-    step = 1
-    while not flag:
-        for simple in default_simple:
-            if a % simple == 0:
-                flag = False
-                step += 1
+    if len(args) <= 1:
+        raise Exception('There is no needed arguments')
+
+    if args[-1] == '--miller-rabin':
+        start = datetime.datetime.now()
+        default_simple = [3, 5, 7, 9, 11, 13, 17, 19]
+        k = int(input("Введите длину: "))
+        a = random.randint(2 ** (k - 1), 2 ** k)
+        if a % 2 == 0:
+            a += 1
+
+        flag = False
+        step = 1
+        while not flag:
+            for simple in default_simple:
+                if a % simple == 0:
+                    flag = False
+                    step += 1
+                    a += 2
+                    break
+            flag = miller_rabin(a, 5)
+            if not flag:
                 a += 2
-                break
-        flag = miller_rabin(a, 5)
-        if not flag:
-            a += 2
-            step += 1
+                step += 1
 
-    print(f"Simple is {a}, шаг is {step}, time is {datetime.datetime.now() - start}")
+        print(f"Simple is {a}, шаг is {step}, time is {datetime.datetime.now() - start}")
+    elif args[-1] == '--rsa':
+        p = 1621
+        q = 4483
+        n = p * q
+        fi = (p - 1) * (q - 1)
+        e = choose_e(0, fi)
+        print(f'e is {e}')
+        d = choose_d(e, fi)
+        print(f'd is {d}')
+        m = (int(input('Input m: ')))
+
+        c = pow(m, e, n)
+        print(f'c if {c}')
+        decrypted = pow(c, d, n)
+        print(f'decrypted is {decrypted}')
+        keys = nod(p - 1, q - 1)
+        print(keys)
+
+        surname = 'Gorbachev'
+
+        codes = [(ord(ch) - 64) for ch in surname]
+        print(codes)
+        encrypted_word = [pow(m, e, n) for m in codes]
+        print(f'encrypted is {encrypted_word}')
+        decrypted_word = [pow(c, d, n) for c in encrypted_word]
+        print(f'decrypted is {decrypted_word}')
+        print(''.join([chr(char + 64) for char in decrypted_word]))
+
+        start_key = 2
+        while pow(encrypted_word[0], start_key, n) != decrypted_word[0]:
+            start_key += 1
+        print(start_key)
+    else:
+        raise Exception('Unknown argument(s)')
