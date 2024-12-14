@@ -82,5 +82,7 @@ if __name__ == '__main__':
     elif args[-2] == '-k':
         k = int(args[-1])
         prime_number = generate_prime(k)
+    else:
+        raise Exception('There are no needed arguments')
 
     print(f"Сгенерированное простое число: {prime_number}")
