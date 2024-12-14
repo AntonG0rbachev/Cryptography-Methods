@@ -25,15 +25,18 @@ def ferma(n):
         б) Если нет, увеличиваем x на 1 и повторяем шаги.
     4. Останавливаемся, когда множители найдены.
     """
+    if n % 2 == 0:
+        return 2, n // 2
+
     x = math.ceil(math.sqrt(n))
-    while True:
-        y_square = x * x - n
-        y = int(math.sqrt(y_square))
-        if y * y == y_square:
-            p1 = x - y
-            p2 = x + y
-            return p1, p2
+    y = x * x - n
+
+    while not is_square(y):
         x += 1
+        y = x * x - n
+
+    y = int(math.sqrt(y))
+    return x - y, x + y
 
 
 if __name__ == '__main__':
