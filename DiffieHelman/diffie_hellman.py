@@ -76,9 +76,16 @@ def find_g(p):
 if __name__ == '__main__':
     args = sys.argv
 
-    p = generate_prime(10)
-    g = find_g(p)
-    a, A, b, B, K_alice, K_bob = diffie_hellman(p, g)
+    defaults = {
+        'counts': 10,
+    }
+    p, g, a, b, A, B, alice_secret, bob_secret = None, None, None, None, None, None, None, None
+
+    if len(args) <= 1:
+        p = generate_prime(defaults['counts'])
+        g = find_g(p)
+        a, A, b, B, alice_secret, bob_secret = diffie_hellman(p, g)
+
     print(f"Простое число (p): {p}")
     print(f"Основание (g): {g}")
     print(f"Секрет Алисы (a): {a}")
