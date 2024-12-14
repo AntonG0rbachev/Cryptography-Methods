@@ -87,13 +87,21 @@ if __name__ == '__main__':
     defaults = {
         'counts': 10,
     }
-    counts, p, g, a, b, A, B, alice_key, bob_key = None, None, None, None, None, None, None, None, None
+    counts = None
+    p = None
+    g = None
+    a = None
+    b = None
+    A = None
+    B = None
+    alice_key = None
+    bob_key = None
 
     if len(args) <= 1:
         counts = defaults['counts']
 
-    elif args[-1] == '-c' or '--counts':
-        counts = int(args[-2]) if args[-2] else defaults['counts']
+    elif args[-2] == '-c' or '--counts':
+        counts = int(args[-1]) if args[-1] else defaults['counts']
 
     else:
         raise Exception('There are no needed arguments')
