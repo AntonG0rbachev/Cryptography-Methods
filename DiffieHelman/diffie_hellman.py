@@ -1,12 +1,14 @@
 import random
 
-from ferma import ferma
-from miller_rabin import generate_prime
-from utils import quick_pow
+from Ferma.ferma import ferma
+from MilerRabin.miller_rabin import generate_prime
+from QuickPow.quick_pow import quick_pow
 
 
 def diffie_hellman(p, g):
-    """Алгоритм Диффи–Хеллмана"""
+    """
+    Алгоритм Диффи–Хеллмана
+    """
     a = random.randint((p - 1) // 10, p - 1)
     b = random.randint((p - 1) // 10, p - 1)
 
