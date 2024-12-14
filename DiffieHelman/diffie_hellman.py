@@ -5,6 +5,8 @@ from Ferma.ferma import ferma
 from MilerRabin.miller_rabin import generate_prime
 from QuickPow.quick_pow import quick_pow
 
+from sympy import isprime
+
 
 def diffie_hellman(p, g):
     """
@@ -60,17 +62,23 @@ def is_generator(g, p, factors):
     return True
 
 
-def find_g(p):
+def find_generator(p):
+    """
+    Находит генератор g для простого числа p.
+    """
+    if not isprime(p):
+        raise ValueError("p должно быть простым числом.")
+
     factors = factorize(p - 1)
-
-    for g in range(2, p - 1):
-        if not quick_pow(g, (p - 1), p) == 1:
-            continue
-
-        if is_generator(g, p, factors):
+    for g in range(2, p):
+        valid = True
+        for q in factors:
+            if pow(g, (p - 1) // q, p) == 1:
+                valid = False
+                break
+        if valid:
             return g
-
-    raise ValueError('Не получилось найти генератор')
+    return None
 
 
 if __name__ == '__main__':
