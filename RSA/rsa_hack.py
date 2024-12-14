@@ -52,7 +52,6 @@ if __name__ == '__main__':
     phi = (p - 1) * (q - 1)
     print(f'phi = {phi}')
 
-    # Подбор e
     # e: gcd(e, phi(n)) = 1
     e = random.randint(2, n)
 
@@ -61,9 +60,7 @@ if __name__ == '__main__':
 
     print(f'e = {e}')
 
-    # Подбор d
     # d: (e * d) % phi(n) = 1
-
     d = inverse(e, phi)
     print(f'd = {d}')
 
@@ -78,7 +75,6 @@ if __name__ == '__main__':
     c = quick_pow(m, e, n)
     decrypted_m = quick_pow(c, d, n)
 
-    # Взлом
     private_key = hack_rsa(m, c, n)
 
     print(f'Исходное число: m = {m}\nЗашифрованное: c = {c}\nРасшифрованное: decrypted_m = {decrypted_m}')
