@@ -99,7 +99,7 @@ if __name__ == '__main__':
         raise Exception('There are no needed arguments')
 
     p = generate_prime(counts)
-    g = find_g(p)
+    g = find_generator(p)
     a, A, b, B, alice_key, bob_key = diffie_hellman(p, g)
     print(f"Простое число (p): {p}")
     print(f"Основание (g): {g}")
