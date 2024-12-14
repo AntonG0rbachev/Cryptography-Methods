@@ -3,7 +3,10 @@ import random
 from QuickPow.quick_pow import quick_pow
 
 
-def gcd(a, b):
+def euclid(a, b):
+    """
+    Алгоритм Евклида
+    """
     while b != 0:
         a, b = b, a % b
     return a
@@ -55,7 +58,7 @@ if __name__ == '__main__':
     # e: gcd(e, phi(n)) = 1
     e = random.randint(2, n)
 
-    while gcd(e, phi) != 1:
+    while euclid(e, phi) != 1:
         e = random.randint(2, n)
 
     print(f'e = {e}')
@@ -67,7 +70,7 @@ if __name__ == '__main__':
     print(f'Приватный ключ (n, d): {n, d}')
     print(f'Публичный ключ (n, e): {n, e}')
 
-    print(f'Количество ключей шифрования: {gcd(q - 1, p - 1)}')
+    print(f'Количество ключей шифрования: {euclid(q - 1, p - 1)}')
 
     print('\n\nШифрование числа')
 
