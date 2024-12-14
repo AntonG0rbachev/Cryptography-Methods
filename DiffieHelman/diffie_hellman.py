@@ -79,18 +79,25 @@ if __name__ == '__main__':
     defaults = {
         'counts': 10,
     }
-    p, g, a, b, A, B, alice_secret, bob_secret = None, None, None, None, None, None, None, None
+    counts, p, g, a, b, A, B, alice_key, bob_key = None, None, None, None, None, None, None, None, None
 
     if len(args) <= 1:
-        p = generate_prime(defaults['counts'])
-        g = find_g(p)
-        a, A, b, B, alice_secret, bob_secret = diffie_hellman(p, g)
+        counts = defaults['counts']
 
+    elif args[-1] == '-c' or '--counts':
+        counts = int(args[-2]) if args[-2] else defaults['counts']
+
+    else:
+        raise Exception('There are no needed arguments')
+
+    p = generate_prime(counts)
+    g = find_g(p)
+    a, A, b, B, alice_key, bob_key = diffie_hellman(p, g)
     print(f"Простое число (p): {p}")
     print(f"Основание (g): {g}")
     print(f"Секрет Алисы (a): {a}")
     print(f"Секрет Боба (b): {b}")
     print(f"Открытый ключ Алисы (A): {A}")
     print(f"Открытый ключ Боба (B): {B}")
-    print(f"Общий ключ, вычисленный Алисой: {K_alice}")
-    print(f"Общий ключ, вычисленный Бобом: {K_bob}")
+    print(f"Общий ключ, вычисленный Алисой: {alice_key}")
+    print(f"Общий ключ, вычисленный Бобом: {bob_key}")
