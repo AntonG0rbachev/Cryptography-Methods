@@ -2,7 +2,7 @@ import random
 
 from ferma import ferma
 from miller_rabin import generate_prime
-from utils import quick_pow, gcd
+from utils import quick_pow
 
 
 def diffie_hellman(p, g):
