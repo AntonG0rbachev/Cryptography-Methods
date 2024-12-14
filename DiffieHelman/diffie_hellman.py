@@ -38,7 +38,7 @@ def diffie_hellman(p, g):
     secret_bob = pow(A, b, p)
 
     assert secret_alice == secret_bob, "Ошибка: общий секрет не совпадает!"
-    return secret_alice
+    return a, A, b, B, secret_alice, secret_bob
 
 
 def factorize(n):
@@ -87,15 +87,7 @@ if __name__ == '__main__':
     defaults = {
         'counts': 10,
     }
-    counts = None
-    p = None
-    g = None
-    a = None
-    b = None
-    A = None
-    B = None
-    alice_key = None
-    bob_key = None
+    counts, p, g, a, b, A, B, alice_key, bob_key = None, None, None, None, None, None, None, None, None
 
     if len(args) <= 1:
         counts = defaults['counts']
