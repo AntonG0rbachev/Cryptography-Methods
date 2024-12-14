@@ -6,6 +6,7 @@
 
 import time
 import math
+import sys
 
 
 def is_square(n):
@@ -36,8 +37,24 @@ def ferma(n):
 
 
 if __name__ == '__main__':
-    number = 12
+    args = sys.argv
+
+    defaults = {
+        'number': 12,
+    }
+    parts: tuple = ()
     start = time.time()
-    parts = ferma(number)
+
+    if len(args) <= 1:
+        number = defaults['number']
+        parts = ferma(number)
+
+    elif args[-2] == '-n' or '--number':
+        number = int(args[-1]) if args[-1] is not None else defaults['number']
+        parts = ferma(number)
+
+    else:
+        raise Exception('There are no needed arguments')
+
     print(f"Число {number} раскладывается на множители: {parts[0]} и {parts[1]}")
     print(f"Время выполнения: {time.time() - start} секунд")
