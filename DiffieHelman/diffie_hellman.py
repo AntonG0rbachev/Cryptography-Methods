@@ -1,4 +1,5 @@
 import random
+import sys
 
 from Ferma.ferma import ferma
 from MilerRabin.miller_rabin import generate_prime
@@ -8,17 +9,34 @@ from QuickPow.quick_pow import quick_pow
 def diffie_hellman(p, g):
     """
     Алгоритм Диффи–Хеллмана
+    p - большое простое число
+    g - генератор
+    криптографический протокол, используемый для безопасного обмена ключами
+    между двумя сторонами через открытый канал.
+    Алгоритм:
+    1. Публичные параметры. Стороны договариваются об общем большом простом числе
+    p и генераторе g, который является первообразным корнем по модулю p.
+    2. Генерация закрытых ключей. Алиса выбирает случайное число a (секретный ключ Алисы).
+    Боб выбирает случайное число b (секретный ключ Боба).
+    3. Обмен публичными ключами. Алиса вычисляет A=g^a mod p и отправляет его Бобу.
+    Боб вычисляет B=g^b mod p и отправляет его Алисе.
+    4. Генерация общего секрета. Алиса вычисляет s=B^a mod p,
+    используя полученное значение B и свой секретный ключ a.
+    Боб вычисляет s=A^b mod p, используя полученное значение
+    A и свой секретный ключ  b.
+    Обе стороны получают одно и то же значение s.
     """
-    a = random.randint((p - 1) // 10, p - 1)
-    b = random.randint((p - 1) // 10, p - 1)
+    a = random.randint(1, p - 1)
+    A = pow(g, a, p)
 
-    A = quick_pow(g, a, p)
-    B = quick_pow(g, b, p)
+    b = random.randint(1, p - 1)
+    B = pow(g, b, p)
 
-    K_alice = quick_pow(B, a, p)
-    K_bob = quick_pow(A, b, p)
+    secret_alice = pow(B, a, p)
+    secret_bob = pow(A, b, p)
 
-    return a, A, b, B, K_alice, K_bob
+    assert secret_alice == secret_bob, "Ошибка: общий секрет не совпадает!"
+    return secret_alice
 
 
 def factorize(n):
@@ -56,6 +74,8 @@ def find_g(p):
 
 
 if __name__ == '__main__':
+    args = sys.argv
+
     p = generate_prime(10)
     g = find_g(p)
     a, A, b, B, K_alice, K_bob = diffie_hellman(p, g)
