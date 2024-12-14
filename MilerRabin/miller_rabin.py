@@ -8,11 +8,11 @@ import sys
 from QuickPow.quick_pow import quick_pow
 
 
-def miller_rabin(n, k=5):
+def miller_rabin(n, counts=5):
     """
     Тест Миллера-Рабина для проверки числа на простоту.
     n - проверяемое число
-    k - количество раундов теста (точность проверки)
+    counts - количество раундов теста (точность проверки)
     Алгоритм
     1. Представить n − 1 в виде 2s·t, где t нечётно,
     можно сделать последовательным делением n - 1 на 2.
@@ -41,7 +41,7 @@ def miller_rabin(n, k=5):
         s += 1
         d //= 2
 
-    for _ in range(k):
+    for _ in range(counts):
         a = random.randint(2, n - 2)
         x = quick_pow(a, d, n)
         if x == 1 or x == n - 1:
@@ -79,7 +79,7 @@ if __name__ == '__main__':
 
     if len(args) <= 1:
         prime_number = generate_prime(10)
-    elif args[-2] == '-k':
+    elif args[-2] == '-c' or '--counts':
         k = int(args[-1])
         prime_number = generate_prime(k)
     else:
