@@ -50,6 +50,8 @@ def generate_keypair(bits):
     q = generate_prime_number(bits)
     
     n = p * q
+
+    # Вычисляем функцию эйлера
     phi = (p - 1) * (q - 1)
 
     e = random.randrange(2, phi)
