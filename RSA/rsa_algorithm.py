@@ -67,12 +67,20 @@ def generate_keypair(bits):
 
 
 def encrypt(public_key, plaintext):
+    """
+    Шифрование текста (plaintext) с
+    использованием открытого ключа (public_key, т.е. (e, n))
+    """
     e, n = public_key
     cipher_text = [pow(ord(char), e, n) for char in plaintext]
     return cipher_text
 
 
 def decrypt(private_key, cipher_text):
+    """
+    Расшифрование зашифрованного текста (cipher_text) с
+    использованием закрытого ключа (private_key т.е. (d, n))
+    """
     d, n = private_key
     plain_text = ''.join([chr(pow(char, d, n)) for char in cipher_text])
     return plain_text
