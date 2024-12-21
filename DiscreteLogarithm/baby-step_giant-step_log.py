@@ -6,7 +6,7 @@ g^x == h (mod p)
 from QuickPow.quick_pow import quick_pow
 
 
-def baby_step_giant_step(n, p, g, a):
+def baby_step_giant_step(n, p, g, h):
     """
     Вычисляет дискретный логарифм x в уравнении g^x ≡ h (mod p)
     методом 'шаг великана, шаг карлика'.
@@ -28,7 +28,7 @@ def baby_step_giant_step(n, p, g, a):
     print(giant_steps)
 
     for j in range(1, m + 1):
-        v = a * quick_pow(g, j, p) % p
+        v = h * quick_pow(g, j, p) % p
 
         if v in giant_steps:
             i = giant_steps[v]
@@ -41,8 +41,8 @@ if __name__ == '__main__':
     p = 251
     n = 250
     g = 11
-    a = 172
+    h = 58
 
-    print(baby_step_giant_step(n, p, g, a))
+    print(baby_step_giant_step(n, p, g, h))
 
 
