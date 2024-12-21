@@ -23,6 +23,8 @@ import sys
 
 from sympy import gcd, mod_inverse
 
+from MilerRabin.miller_rabin import miller_rabin
+
 
 def generate_prime_candidate(length):
     """
@@ -33,18 +35,9 @@ def generate_prime_candidate(length):
     return p | (1 << length - 1) | 1
 
 
-def is_prime(n):
-    if n % 2 == 0:
-        return n == 2
-    d = 3
-    while d * d <= n and n % d != 0:
-        d += 2
-    return d * d > n
-
-
 def generate_prime_number(length):
     p = 4
-    while not is_prime(p):
+    while not miller_rabin(p):
         p = generate_prime_candidate(length)
     return p
 
