@@ -1,7 +1,7 @@
 import sys
 
 
-def quick_pow(base, exp, mod):
+def quick_pow(base, exp, mod=None):
     """
     это метод, позволяющий вычислять a^b mod m (или просто a^b)
     за логарифмическое число операций по b
@@ -15,12 +15,16 @@ def quick_pow(base, exp, mod):
     для предотвращения переполнения.
     """
     result = 1
-    base %= mod
+
+    if mod:
+        base %= mod
+
     while exp > 0:
         if exp % 2 == 1:
             result = (result * base) % mod
         base = (base * base) % mod
         exp //= 2
+
     return result
 
 
