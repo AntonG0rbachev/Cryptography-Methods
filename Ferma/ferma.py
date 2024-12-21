@@ -52,7 +52,7 @@ if __name__ == '__main__':
     args = sys.argv
 
     defaults = {
-        'number': 12,
+        'number': 343307067711615047372182962356629442952289267108875003956201,
     }
     parts: tuple = ()
     start = time.time()
