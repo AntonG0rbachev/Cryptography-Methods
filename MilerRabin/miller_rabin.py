@@ -78,7 +78,7 @@ if __name__ == '__main__':
     prime_number = None
 
     if len(args) <= 1:
-        prime_number = generate_prime(10)
+        prime_number = (generate_prime(6), generate_prime(1024))
     elif args[-2] == '-c' or '--counts':
         k = int(args[-1])
         prime_number = generate_prime(k)
