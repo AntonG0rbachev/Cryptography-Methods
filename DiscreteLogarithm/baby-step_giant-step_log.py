@@ -7,7 +7,10 @@ g^x == h (mod p)
 1. Представляем x как x = im − j, где
 - m = ceil(sqrt(p - 1)) (приближённый квадратный корень порядка группы)
 - i и j - целые числа
-2. Переписываем уравнение
+2. Создаём таблицу значений (g^m)^i mod p для i=0,1,…,m−1
+(Так называемые 'шаги великана')
+3. Для каждого j, вычисляем h⋅g^j mod p и проверяем, есть ли совпадение с таблицей
+(Так называемые 'шаги карлика')
 """
 import sys
 from math import ceil, sqrt
@@ -24,23 +27,26 @@ def baby_step_giant_step(n, p, g, h):
     g - основание
     h - значение
     """
-    m = ceil(sqrt(p - 1))
-    print(f'm = sqrt({p}) + 1 = {m}')
+    m = int((p - 1) ** 0.5) + 1  # Приближённый квадратный корень порядка группы
+    print(f'm = sqrt({p - 1}) + 1 = {m}')
+
+    # Вычисляем b = g^m (mod p)
     b = quick_pow(g, m, p)
-    print(f'b = {g}^{m}(mod {p}) = {b}')
+    print(f'b = {g}^{m} (mod {p}) = {b}')
 
+    # Таблица гигантских шагов
     giant_steps = {}
-
     for i in range(1, m + 1):
         giant_steps[quick_pow(b, i, p)] = i
+    print(f'Гигантские шаги: {giant_steps}')
 
-    print(giant_steps)
-
+    # Карликовые шаги
     for j in range(1, m + 1):
-        v = h * quick_pow(g, j, p) % p
-
-        if v in giant_steps:
-            i = giant_steps[v]
+        small_step = h * quick_pow(g, j, p) % p
+        print(f'Карликовый шаг {j}: small_step = {small_step}')
+        if small_step in giant_steps:
+            i = giant_steps[small_step]
+            print(f'Найдено совпадение: i = {i}, j = {j}')
             return (m * i - j) % n
 
     return None
@@ -75,6 +81,7 @@ if __name__ == '__main__':
         g = float(args_map['-g']) if '-g' in args_map.keys() else defaults['g']
         h = float(args_map['-h']) if '-h' in args_map.keys() else defaults['h']
 
+    print(f'p = {p}, n = {n}, g = {g}, h = {h}')
     print(baby_step_giant_step(n, p, g, h))
 
 
