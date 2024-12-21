@@ -2,8 +2,15 @@
 Этот алгоритм используется для решения задачи дискретного логарифма, например:
 g^x == h (mod p)
 Цель - найти такое х, что g^x mod p == h
+
+Алгоритм:
+1. Представляем x как x = im − j, где
+- m = ceil(sqrt(p - 1)) (приближённый квадратный корень порядка группы)
+- i и j - целые числа
+2. Переписываем уравнение
 """
 import sys
+from math import ceil, sqrt
 
 from QuickPow.quick_pow import quick_pow
 
@@ -17,7 +24,7 @@ def baby_step_giant_step(n, p, g, h):
     g - основание
     h - значение
     """
-    m = int(p ** 0.5) + 1
+    m = ceil(sqrt(p - 1))
     print(f'm = sqrt({p}) + 1 = {m}')
     b = quick_pow(g, m, p)
     print(f'b = {g}^{m}(mod {p}) = {b}')
