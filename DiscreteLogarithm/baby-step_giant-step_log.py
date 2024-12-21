@@ -18,7 +18,7 @@ from math import ceil, sqrt
 from QuickPow.quick_pow import quick_pow
 
 
-def baby_step_giant_step(n, p, g, h):
+def baby_step_giant_step(p, g, h, n=None):
     """
     Вычисляет дискретный логарифм x в уравнении g^x ≡ h (mod p)
     методом 'шаг великана, шаг карлика'.
@@ -27,6 +27,9 @@ def baby_step_giant_step(n, p, g, h):
     g - основание
     h - значение
     """
+    if not n:
+        n = p - 1
+
     m = int((p - 1) ** 0.5) + 1  # Приближённый квадратный корень порядка группы
     print(f'm = sqrt({p - 1}) + 1 = {m}')
 
@@ -82,6 +85,6 @@ if __name__ == '__main__':
         h = float(args_map['-h']) if '-h' in args_map.keys() else defaults['h']
 
     print(f'p = {p}, n = {n}, g = {g}, h = {h}')
-    print(baby_step_giant_step(n, p, g, h))
+    print(baby_step_giant_step(p, g, h, n=n))
 
 
