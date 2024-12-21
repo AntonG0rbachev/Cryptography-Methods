@@ -3,15 +3,16 @@
 что любое нечетное составное число N можно представить как разность квадратов
     N = x^2 − y^2 = (x − y)(x + y)
 """
-
 import time
 import math
 import sys
 
+from QuickPow.quick_pow import quick_pow
+
 
 def is_square(n):
     root = int(math.sqrt(n))
-    return root ** 2 == n
+    return quick_pow(root, 2) == n
 
 
 def ferma(n):
@@ -29,6 +30,7 @@ def ferma(n):
         б) Если нет, увеличиваем x на 1 и повторяем шаги.
     4. Останавливаемся, когда множители найдены.
     """
+    begin = time.time()
     if n % 2 == 0:
         return 2, n // 2
 
@@ -38,8 +40,11 @@ def ferma(n):
     while not is_square(y):
         x += 1
         y = x * x - n
+        print(time.time() - begin)
 
     y = int(math.sqrt(y))
+
+    print(time.time() - begin)
     return x - y, x + y
 
 
