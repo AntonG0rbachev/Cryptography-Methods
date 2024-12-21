@@ -13,7 +13,6 @@ g^x == h (mod p)
 (Так называемые 'шаги карлика')
 """
 import sys
-from math import ceil, sqrt
 
 from QuickPow.quick_pow import quick_pow
 
